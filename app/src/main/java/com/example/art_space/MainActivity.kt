@@ -37,10 +37,29 @@ class MainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-
 fun AppArtSpace(){
-    var art by remember { mutableStateOf("") }
+    var art by remember { mutableStateOf(1) }
 
+    when(art) {
+        1-> ContentArt(
+            R.drawable.art_space1,
+            "A apoteose de Hércules",
+            "François Lemoyne (1736)"
+        )
+        2-> ContentArt(
+            R.drawable.art_space2,
+            "Black & Yellow",
+            "murakamistudio"
+        )
+    }
+}
+
+@Composable
+fun ContentArt(
+    idImage: Int,
+    title: String,
+    artist: String
+) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -50,7 +69,7 @@ fun AppArtSpace(){
     ) {
         Card() {
             Image(
-                painter = painterResource(id = R.drawable.art_space1),
+                painter = painterResource(id = idImage),
                 contentDescription = "Fotografia de alguma arte ou paisagem",
                 modifier = Modifier.padding(40.dp)
             )
@@ -61,21 +80,21 @@ fun AppArtSpace(){
                 modifier = Modifier.padding(5.dp)
             ) {
                 Text(
-                    text = "Título da Obra",
+                    text = title,
                     fontWeight = FontWeight.Bold,
                     fontSize = 22.sp
                 )
                 Spacer(
                     modifier = Modifier.size(5.dp))
                 Text(
-                    text = "Artista (ano)",
+                    text = artist,
                     fontSize = 16.sp
                 )
             }
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Button(onClick = {}) {
                 Text(text = "Anterior")
